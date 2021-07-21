@@ -26,3 +26,5 @@ To invite the bot to your server, click here: [Invite The Grand Calcutron to you
 #### Example
 
 ![Example of Odds command on Discord](/assets/example1.png)
+
+The example shows the /odds command, followed by 40 (the size of the deck), 8 (the number of copies of the wanted card in the deck), 7 (the number of cards drawn), and 1 (the number of copies of the wanted card we want to draw). The Grand Calcutron tells us that the odds of drawing 1 or more of the wanted card in that many draws is 81.9%.

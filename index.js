@@ -114,7 +114,7 @@ client.on("message", msg => {
       // Set the color of the embed
       .setColor('#2ba64c')
       // Set the main content of the embed
-      .setDescription('Format commands as follows: \n\ \n\ <command> DeckSize SuccessesInDeck CardsDrawn SuccessesWanted \n\ DeckSize - Total number of cards in the deck \n\ SuccessesInDeck - Total number of the wanted card in the deck \n\ CardsDrawn - Number of cards drawn at the point you want the odds \n\ SuccessesWanted - Number of the wanted card you want to draw \n\ \n\ Example: /odds 40 9 7 2 - get odds of drawing 2 copies of a card with 9 copies in a 40 card deck in your opening hand. \n\ \n\ \n\ Commands \n\ \n\ /odds - Get odds of drawing a selected number or more of a given card. \n\ /exact - Get odds of drawing exactly the selected number of a given card.');
+      .setDescription('Format commands as follows: \n\ \n\ <command> DeckSize SuccessesInDeck CardsDrawn SuccessesWanted \n\ \n\ DeckSize - Total number of cards in the deck \n\ SuccessesInDeck - Total number of the wanted card in the deck \n\ CardsDrawn - Number of cards drawn at the point you want the odds \n\ SuccessesWanted - Number of the wanted card you want to draw \n\ \n\ Example: /odds 40 9 7 2 - get odds of drawing 2 copies of a card with 9 copies in a 40 card deck in your opening hand. \n\ \n\ \n\ Commands \n\ \n\ /odds - Get odds of drawing a selected number or more of a given card. \n\ /exact - Get odds of drawing exactly the selected number of a given card.');
     // Send the embed to the same channel as the message
     msg.channel.send(embed);
     
