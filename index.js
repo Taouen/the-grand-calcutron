@@ -10,7 +10,7 @@ function doCalc(deck, copies, drawn, successes, exact = false) {
         pr = hyp(deck, copies, drawn, successes) - hyp(deck, copies, drawn, successes - 1)
     }
     else
-        pr = hyp(0, drawn, copies, deck);
+        pr = hyp(deck, copies, drawn, 0);
     if (pr < 1e-6)
         pr = 0;
     pr = (100 * pr).toPrecision(3) + '%';
