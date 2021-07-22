@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { Client, MessageEmbed } = require('discord.js');
 const keepAlive = require('./server');
 const client = new Client();
