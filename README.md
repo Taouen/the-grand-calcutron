@@ -46,9 +46,9 @@ You can follow this tutorial to [set up your discord bot.](https://www.freecodec
 To run the bot server locally:
 
 ```
-node index.js
+npm start
 ```
 
-The bot will only respond on Discord as long as your server is running, which is useful for development.
+The bot will only respond on Discord as long as your server is running, which is useful for development. The server will restart automatically when you save changes to any file.
 
 This bot uses [discord.js](https://discord.js.org/#/docs/main/stable/general/welcome), a Node module that allows you to interact with the Discord API.
