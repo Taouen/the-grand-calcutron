@@ -14,8 +14,8 @@ function calculateProbability(
 ) {
   if (exact) {
     //Chance to exactly x cards
+    let probability;
     if (successes > 0) {
-      let probability;
       probability =
         hyp(deck, copies, cardsDrawn, successes) -
         hyp(deck, copies, cardsDrawn, successes - 1);
@@ -87,8 +87,10 @@ client.on('message', (msg) => {
     return;
   }
 
-  if (msg.content.startsWith('/odds')) {
-    const strings = msg.content.split(' ');
+  let message = msg.content.toLowerCase();
+
+  if (message.startsWith('/odds')) {
+    const strings = message.split(' ');
     strings.splice(0, 1);
     const values = strings.map((item) => Number(item));
 
@@ -105,11 +107,10 @@ client.on('message', (msg) => {
     msg.channel.send(embed);
   }
 
-  if (msg.content.startsWith('/exact')) {
-    const strings = msg.content.split(' ');
+  if (message.startsWith('/exact')) {
+    const strings = message.split(' ');
     strings.splice(0, 1);
     const values = strings.map((item) => Number(item));
-    console.log(...values);
 
     // msg.reply(compute(...values));
     const embed = new MessageEmbed()
