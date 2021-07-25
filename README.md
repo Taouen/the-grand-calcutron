@@ -8,7 +8,7 @@ Hypergeometric probability is commonly used to determine the odds of drawing cer
 
 ## Usage
 
-You can [invite The Grand Calcutron to your server](https://discord.com/api/oauth2/authorize?client_id=867235663119646731&permissions=2148002880&scope=bot) or clone it from GitHub to run it yourself.
+You can [invite The Grand Calcutron to your Discord server](https://discord.com/api/oauth2/authorize?client_id=867235663119646731&permissions=2148002880&scope=bot) or clone it from GitHub to run it yourself.
 
 ### Command Structure
 
@@ -42,3 +42,13 @@ The example shows the /odds command, followed by 40 (the size of the deck), 8 (t
 ```
 
 You can follow this tutorial to [set up your discord bot.](https://www.freecodecamp.org/news/create-a-discord-bot-with-javascript-nodejs/) The tutorial also explains how you can set up the code for the bot on [replit.com](https://replit.com/), and how to use [Uptime Robot](https://uptimerobot.com/) to make sure it is on all the time.
+
+To run the bot server locally:
+
+```
+node index.js
+```
+
+The bot will only respond on Discord as long as your server is running, which is useful for development.
+
+This bot uses [discord.js](https://discord.js.org/#/docs/main/stable/general/welcome), a Node module that allows you to interact with the Discord API.
