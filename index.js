@@ -3,57 +3,78 @@ const { Client, MessageEmbed } = require('discord.js');
 const keepAlive = require('./server');
 const client = new Client();
 
-function doCalc(deck, copies, drawn, successes, exact = false) {
-  if (exact) {
-    if (successes > 0) {
-      pr =
-        hyp(deck, copies, drawn, successes) -
-        hyp(deck, copies, drawn, successes - 1);
-    } else pr = hyp(deck, copies, drawn, 0);
-    if (pr < 1e-6) pr = 0;
-    pr = (100 * pr).toPrecision(3) + '%';
+// Hypergeometric calculation formula copied from https://gist.github.com/adamnovak/f34e6cf2c08684752a9d
 
-    return pr;
+function calculateProbability(
+  deck,
+  copies,
+  cardsDrawn,
+  successes,
+  exact = false
+) {
+  if (exact) {
+    //Chance to exactly x cards
+    if (successes > 0) {
+      let probability;
+      probability =
+        hyp(deck, copies, cardsDrawn, successes) -
+        hyp(deck, copies, cardsDrawn, successes - 1);
+    } else probability = hyp(deck, copies, cardsDrawn, 0);
+    if (probability < 1e-6) probability = 0;
+    probability = (100 * probability).toPrecision(3) + '%';
+
+    return probability;
   } else {
     //Chance to draw x or more cards
-    if (successes > 0) pral = 1 - hyp(deck, copies, drawn, successes - 1);
-    // (successes - 1, drawn, copies, deck);
-    else pral = 1;
-    if (pral < 1e-6) pral = 0;
-    pral = (100 * pral).toPrecision(3) + '%';
+    let probability;
+    if (successes > 0)
+      probability = 1 - hyp(deck, copies, cardsDrawn, successes - 1);
+    else probability = 1;
+    if (probability < 1e-6) probability = 0;
+    probability = (100 * probability).toPrecision(3) + '%';
 
-    return pral;
+    return probability;
   }
 }
 
-// Population Size, Subpopulation Size, Sample Size, value
-function hyp(ps, ss, sz, x) {
-  var nz, mz;
-  if (ss < sz) {
-    nz = ss;
-    mz = sz;
+function hyp(popSize, successesAvailable, sampled, successesObserved) {
+  var smallerSet, largerSet;
+
+  if (successesAvailable < sampled) {
+    smallerSet = successesAvailable;
+    largerSet = sampled;
   } else {
-    nz = sz;
-    mz = ss;
+    smallerSet = sampled;
+    largerSet = successesAvailable;
   }
+
   var h = 1;
+
   var s = 1;
+
   var k = 0;
+
   var i = 0;
-  while (i < x) {
-    while (s > 1 && k < nz) {
-      h = h * (1 - mz / (ps - k));
-      s = s * (1 - mz / (ps - k));
+
+  while (i < successesObserved) {
+    while (s > 1 && k < smallerSet) {
+      h = h * (1 - largerSet / (popSize - k));
+      s = s * (1 - largerSet / (popSize - k));
       k = k + 1;
     }
-    h = (h * (nz - i) * (mz - i)) / (i + 1) / (ps - nz - mz + i + 1);
+    h =
+      (h * (smallerSet - i) * (largerSet - i)) /
+      (i + 1) /
+      (popSize - smallerSet - largerSet + i + 1);
     s = s + h;
     i = i + 1;
   }
-  while (k < nz) {
-    s = s * (1 - mz / (ps - k));
+
+  while (k < smallerSet) {
+    s = s * (1 - largerSet / (popSize - k));
     k = k + 1;
   }
+
   return s;
 }
 
@@ -73,7 +94,7 @@ client.on('message', (msg) => {
 
     const embed = new MessageEmbed()
       // Set the title of the field
-      .setTitle(`${doCalc(...values)}`)
+      .setTitle(`${calculateProbability(...values)}`)
       // Set the color of the embed
       .setColor('#2ba64c')
       // Set the main content of the embed
@@ -93,7 +114,7 @@ client.on('message', (msg) => {
     // msg.reply(compute(...values));
     const embed = new MessageEmbed()
       // Set the title of the field
-      .setTitle(`${doCalc(...values, true)}`)
+      .setTitle(`${calculateProbability(...values, true)}`)
       // Set the color of the embed
       .setColor('#2ba64c')
       // Set the main content of the embed
